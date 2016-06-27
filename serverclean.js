@@ -1,0 +1,56 @@
+var mongoose = require('mongoose'),
+    assert = require('assert');
+
+var Dishes = require('./models/dishes');
+var Promotions = require('./models/promotions');
+var Leaders = require('./models/leadership');
+
+// Connection URL
+var url = 'mongodb://localhost:27017/conFusion';
+mongoose.connect(url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    // we're connected!
+    console.log("Connected correctly to server");
+
+    // create a new user
+//    var newDish = Dishes({
+//        name: 'Uthapizza',
+//        description: 'Test'
+//    });
+
+    // save the user
+//    newDish.save(function (err) {
+//        if (err) throw err;
+//        console.log('Dish created!');
+
+        // get all the users
+        Dishes.find({}, function (err, dishes) {
+            if (err) throw err;
+
+            // object of all the users
+            console.log(dishes);
+                        db.collection('dishes').drop(function () {
+                db.close();
+            });
+    });
+        Promotions.find({}, function (err, promotions) {
+            if (err) throw err;
+
+            // object of all the users
+            console.log(promotions);
+                        db.collection('promotions').drop(function () {
+                db.close();
+            });
+    });
+        Leaders.find({}, function (err, leaders) {
+            if (err) throw err;
+
+            // object of all the users
+            console.log(leaders);
+                        db.collection('leaders').drop(function () {
+                db.close();
+            });
+    });
+});
